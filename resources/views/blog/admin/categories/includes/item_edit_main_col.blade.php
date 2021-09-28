@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group">
                     <label for="slug">Идентификатор</label>
-                    <input type="text" name="slug" id="slug" class="form-control" minlength="3" value="{{ old('slug') ?? $item->slug }}" required>
+                    <input type="text" name="slug" id="slug" class="form-control" minlength="3" value="{{ old('slug') ?? $item->slug }}" >
                 </div>
                 <div class="form-group">
                     <label for="parent_id">Родитель</label>
