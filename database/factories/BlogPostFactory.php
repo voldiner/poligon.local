@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-
+use Illuminate\Support\Str;
 $factory->define(App\Models\BlogPost::class, function (Faker $faker) {
 
     $txt = $faker->realText(rand(1000,4000));
@@ -11,7 +11,7 @@ $factory->define(App\Models\BlogPost::class, function (Faker $faker) {
         'title' => $title,
         'category_id'   => rand(1,11),
         'user_id'       => (rand(1,5) == 5) ? 1 : 2,
-        'slug'          => str_slug($title),
+        'slug'          => Str::slug($title),
         'excerpt'       => $faker->text(rand(40,100)),
         'content_raw'   => $txt,
         'content_html'  => $txt,
