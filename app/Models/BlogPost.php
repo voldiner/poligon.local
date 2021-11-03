@@ -9,6 +9,17 @@ class BlogPost extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+      'title',
+      'slug',
+      'category_id',
+      'exerpt',
+      'content_raw',
+      'is_published',
+      'published_at',
+      'user_id'
+    ];
+
     public function category()
     {
         // статья принадлежит категории

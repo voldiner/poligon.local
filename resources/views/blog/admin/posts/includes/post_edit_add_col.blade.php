@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="published_at">Опубликовано</label>
-                        <input type="text" id="published_at" class="form-control" value="{{ $item->published_at }}" disabled>
+                        <input type="text" name="published_at" id="published_at" class="form-control" value="{{ $item->published_at }}" disabled>
                     </div>
                 </div>
             </div>

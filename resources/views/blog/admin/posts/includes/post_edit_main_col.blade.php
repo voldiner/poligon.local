@@ -36,7 +36,7 @@
                     <label for="category_id">Категория</label>
                     <select name="category_id" id="category_id" class="form-control" placeholder="Выбрать категорию" required>
                         @foreach($categoryList as $categoryOption)
-                            <option value="{{ $categoryOption->id }}" @if($categoryOption->id == $item->parent_id)selected @endif>
+                            <option value="{{ $categoryOption->id }}" @if($categoryOption->id == $item->category_id)selected @endif>
                                 {{ $categoryOption->id_title }}
                             </option>
                         @endforeach
@@ -54,7 +54,7 @@
                 </div>
                 <div class="form-check">
                     <input type="hidden" name="is_published" value="0">
-                    <input type="checkbox" name="is_published" class="form-check-input" value="{{ $item->is_published }}"
+                    <input type="checkbox" name="is_published" class="form-check-input" value="1"
                     @if($item->is_published)
                         checked = "checked"
                     @endif
