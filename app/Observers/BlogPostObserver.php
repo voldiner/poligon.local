@@ -17,7 +17,15 @@ class BlogPostObserver
     {
         //
     }
-
+    /**
+     * @param  BlogPost
+     * @return void
+     */
+    public function creating(BlogPost $blogPost)
+    {
+        $this->setPublishedAt($blogPost);
+        $this->setSlug($blogPost);
+    }
     /**
      * Handle the blog post "updated" event.
      *

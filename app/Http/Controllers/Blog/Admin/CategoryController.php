@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Requests\BlogCategoryCreateRequest;
 use App\Http\Requests\BlogCategoryUpdateRequest;
+use App\Http\Requests\BlogPostUpdateRequest;
 use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
 use Illuminate\Http\Request;
@@ -61,7 +62,7 @@ class CategoryController extends BaseController
         $data = $request->input();
 
         if (empty($data['slug'])){
-            $data['slug'] = str_slug($data['title']);
+            $data['slug'] = Str::slug($data['title']);
         }
 
         $item = new BlogCategory($data);
@@ -106,7 +107,7 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  BlogPostUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -140,10 +141,10 @@ class CategoryController extends BaseController
         }
 
         $data = $request->all();
-
-        if (empty($data['slug'])){
+        // ----- ушло в обсервер
+        /*if (empty($data['slug'])){
             $data['slug'] = Str::slug($data['title']);
-        }
+        }*/
 
         $result = $item->fill($data)->save(); // $result = $item->update($data) ;
 
