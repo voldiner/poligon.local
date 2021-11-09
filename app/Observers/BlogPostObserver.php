@@ -25,6 +25,8 @@ class BlogPostObserver
     {
         $this->setPublishedAt($blogPost);
         $this->setSlug($blogPost);
+        $this->setHtml($blogPost);
+        $this->setUser($blogPost);
     }
     /**
      * Handle the blog post "updated" event.
@@ -68,6 +70,21 @@ class BlogPostObserver
         }
     }
 
+    /**
+     * @param BlogPost $blogPost
+     */
+    protected function setHtml(BlogPost $blogPost)
+    {
+        if ($blogPost->isDirty('content_raw')){
+            // TODO доделать генерацию markdows d html
+            $blogPost->content_html = $blogPost->content_raw;
+        }
+    }
+
+    protected function setUser(BlogPost $blogPost)
+    {
+        $blogPost->user_id =  auth()->id() ?? BlogPost::UNKNOWN_USER;
+    }
     /**
      * Handle the blog post "deleted" event.
      *
