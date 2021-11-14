@@ -93,7 +93,16 @@ class BlogPostObserver
      */
     public function deleted(BlogPost $blogPost)
     {
-        //
+        //dd(__METHOD__, $blogPost);
+    }
+
+    /**
+     * @param \App\Models\BlogPost
+     */
+    public function deleting(BlogPost $blogPost)
+    {
+        // dd(__METHOD__, $blogPost);
+        //return false; //запрет удаления
     }
 
     /**

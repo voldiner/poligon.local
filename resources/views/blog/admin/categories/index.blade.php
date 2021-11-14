@@ -26,8 +26,17 @@
                                         <a href="{{ route('blog.admin.categories.edit',$item->id) }}"> {{ $item->title }}</a>
                                     </td>
                                     <td @if(in_array($item->parent_id, [0, 1])) style="color: #ccc" @endif>
-                                        {{ $item->parent_id }}
-
+                                        {{--{{ $item->parentCategory->title ?? '?' }}--}}
+                                        {{-- variant 2--}}
+                                        {{--{{ optional($item->parentCategory)->title }}--}}
+                                        {{-- variant 3--}}
+                                        {{--@if($item->parentCategory)--}}
+                                            {{--{{ $item->parentCategory->id === \App\Models\BlogCategory::ROOT ? 'ROOT' : $item->parentCategory->title }}--}}
+                                        {{--@else--}}
+                                            {{--???--}}
+                                        {{--@endif--}}
+                                        {{-- variant 4--}}
+                                        {{ $item->parentTitle }}
                                     </td>
                                 </tr>
                             @endforeach

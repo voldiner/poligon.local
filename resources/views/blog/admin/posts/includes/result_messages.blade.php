@@ -23,7 +23,9 @@
                     <span aria-hidden="true">X</span>
                 </button>
                 {{ session()->get('success') }}
+                @include('blog.admin.posts.includes.restore')
             </div>
         </div>
     </div>
 @endif
+
