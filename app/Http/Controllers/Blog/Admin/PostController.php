@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\BlogPostUpdateRequest;
+use App\Jobs\BlogPostAfterCreateJob;
+use App\Jobs\BlogPostAfterDeleteJob;
 use App\Models\BlogPost;
 use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
@@ -65,6 +67,8 @@ class PostController extends BaseController
         //$item = (new BlogPost())->create($data);
 
         if ($item->exists){
+            $job = new BlogPostAfterCreateJob($item);  // создать новую задачу
+            $this->dispatch($job); // поставить ее в очередь
             return redirect()->route('blog.admin.posts.edit', $item->id)->with(['success' => 'Успешно сохранено']);
         }else{
             return back()->withErrors(['msg' => "Ошибка сохранения"])->withInput();
@@ -153,6 +157,17 @@ class PostController extends BaseController
         // полное удаление
         //$result = BlogPost::find($id)->forceDelete();
         if ($result){
+            //BlogPostAfterDeleteJob::dispatch($id);   // ставим в очередь
+            // Варианты запуска ----------
+            //BlogPostAfterDeleteJob::dispatchNow($id);
+            dispatch(new BlogPostAfterDeleteJob($id))->delay(20) ;
+           // dispatch_now(new BlogPostAfterDeleteJob($id));
+//            $this->dispatch(BlogPostAfterDeleteJob($id));
+//            $this->dispatchNow(BlogPostAfterDeleteJob($id));
+
+
+
+            // ----------------------------
             return redirect()->route('blog.admin.posts.index')->with(
                 ['success' => "Запись id[$id] успешно удалена",
                  'html' => "<a href=" . route('blog.admin.posts.restore',$id) . ">Восстановить</a>"

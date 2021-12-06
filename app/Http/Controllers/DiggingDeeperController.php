@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenerateCatalog\GenerateCatalogMainJob;
 use App\Models\BlogPost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -67,5 +68,16 @@ class DiggingDeeperController extends Controller
         });*/
 
 
+    }
+
+    /**
+     * @link http://poligon.local/digging_deeper/prepare-catalog
+     *  запуск цепочки в очереди
+     * php artisan queue:listen --queue=generate-catalog
+     */
+
+    public function prepareCatalog()
+    {
+        GenerateCatalogMainJob::dispatch();
     }
 }

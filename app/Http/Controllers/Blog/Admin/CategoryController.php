@@ -43,7 +43,7 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        $item = new BlogCategory();
+        $item = BlogCategory::make();
 
         $categoryList = $this->blogCategoryRepository->getForComboBox();
 
@@ -55,6 +55,7 @@ class CategoryController extends BaseController
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @var BlogCategory $item
      * @return \Illuminate\Http\Response
      */
     public function store(BlogCategoryCreateRequest $request)
@@ -65,11 +66,13 @@ class CategoryController extends BaseController
 //        if (empty($data['slug'])){
 //            $data['slug'] = Str::slug($data['title']);
 //        }
-
-        $item = new BlogCategory($data);
-        $item->save();
+        // для 5.8
+        //$item = new BlogCategory($data);
+        //$item->save();
         // ---- второй способ ------ //
         //$item = (new BlogCategory())->create($data);
+        // для 6.*
+        $item = BlogCategory::create($data);
 
         if ($item->exists){
             return redirect()->route('blog.admin.categories.edit', $item->id)->with(['success' => 'Успешно сохранено']);
